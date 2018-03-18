@@ -25,4 +25,4 @@ class Holding(object):
 
     def get_holding_value(self, market):
         currency_price = market.currencies[self.currency]
-        return self.holding * currency_price
+        return self.holding * currency_price.price

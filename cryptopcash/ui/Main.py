@@ -32,7 +32,7 @@ class Main(object):
 
     def get_palette(self):
         return [('default', 'yellow', 'black'),
-                ('headers', 'black', 'yellow')]
+                ('highlighted', 'black', 'yellow')]
 
     def run(self):
         self.loop.run()
