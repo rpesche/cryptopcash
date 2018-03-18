@@ -10,17 +10,17 @@ class Asset(urwid.Columns):
         price = market.currencies[holding.currency]
 
         unit = holding.unit
-        currency_column = Value(holding.currency, unit)
-        price_column = Value(price.price, unit)
-        holding_column = Value(holding.holding, unit)
-        value_column = Value(holding.holding * price.price, unit)
+        currency = Value(holding.currency, unit)
+        price = Value(price.price, unit)
+        holding = Value(holding.holding, unit)
+        value = Value(holding.get_holding_value(market), unit)
 
-        high_column = Value(price.high, unit)
-        low_column = Value(price.low, unit)
+        high = Value(price.high, unit)
+        low = Value(price.low, unit)
 
-        super().__init__([currency_column,
-                          price_column,
-                          holding_column,
-                          value_column,
-                          high_column,
-                          low_column])
+        super().__init__([currency,
+                          price,
+                          holding,
+                          value,
+                          high,
+                          low])
