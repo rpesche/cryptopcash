@@ -3,6 +3,7 @@ import urwid
 from cryptopcash.ui.Asset import Asset
 from cryptopcash.ui.Title import Title
 from cryptopcash.ui.Header import Header
+from cryptopcash.ui.TotalHolding import TotalHolding
 
 
 class Main(object):
@@ -22,17 +23,19 @@ class Main(object):
 
         title = Title()
         header = Header()
-
         assets = [Asset(holding, market) for holding in wallet.holdings]
+        total = TotalHolding(wallet, market)
 
-        listwalker = urwid.SimpleListWalker([title, header, *assets])
-        list = urwid.ListBox(listwalker)
+        listwalker = urwid.SimpleListWalker([header, *assets])
+        list_box = urwid.ListBox(listwalker)
 
-        return urwid.AttrMap(list, 'default')
+        frame = urwid.Frame(list_box, header=title, footer=total)
+
+        return urwid.AttrMap(frame, 'default')
 
     def get_palette(self):
         return [('default', 'yellow', 'black'),
-                ('headers', 'black', 'yellow')]
+                ('highlighted', 'black', 'yellow')]
 
     def run(self):
         self.loop.run()
