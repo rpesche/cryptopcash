@@ -6,7 +6,7 @@ class Market(object):
         self.currencies = {}
 
     def add_currency(self, currency):
-        self.currencies[currency.name] = currency
+        self.currencies[currency.unit] = currency
 
 
 class CryptoCurrency(object):
