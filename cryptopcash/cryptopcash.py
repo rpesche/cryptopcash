@@ -32,6 +32,3 @@ def main():
 
     main_ui = Main(wallet, market)
     main_ui.run()
-
-
-main()
