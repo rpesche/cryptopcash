@@ -39,7 +39,7 @@ class LocalStorage(object):
 
         holdings = []
         for currency, holding in holding_data.items():
-            coin = CryptoCurrency(None, currency)
+            coin = CryptoCurrency("", currency)
             holding = Holding(coin, float(holding), "")
             holdings.append(holding)
 
