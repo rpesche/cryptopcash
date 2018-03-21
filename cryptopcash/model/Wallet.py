@@ -18,11 +18,11 @@ class Wallet(object):
 
 class Holding(object):
 
-    def __init__(self, currency, holding, unit):
-        self.currency = currency
+    def __init__(self, coin, holding, unit):
+        self.coin = coin
         self.holding = holding
         self.unit = unit
 
     def get_holding_value(self, market):
-        currency_price = market.currencies[self.currency]
+        currency_price = market.get_currency_price(self.coin.symbol)
         return self.holding * currency_price.price

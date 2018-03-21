@@ -7,10 +7,10 @@ class Asset(urwid.Columns):
 
     def __init__(self, holding, market):
 
-        marked_price = market.currencies[holding.currency]
+        marked_price = market.get_currency_price(holding.coin.symbol)
 
         unit = holding.unit
-        currency = urwid.Text(marked_price.name)
+        currency = urwid.Text(marked_price.coin.name)
         price = Value(marked_price.price, unit)
         held = Value(holding.holding, unit)
         value = Value(holding.get_holding_value(market), unit)

@@ -1,5 +1,5 @@
 from cryptopcash.model.Wallet import Wallet
-from cryptopcash.model.Market import Market, CryptoCurrency
+from cryptopcash.model.Market import Market, CryptoCurrency, CurrencyPrice
 
 from cryptopcash.ui.Main import Main
 
@@ -10,10 +10,20 @@ def main():
     wallet = Wallet()
     market = Market()
 
-    market.add_currency(CryptoCurrency("Bitcoin", "BTC", 7800, 8000, 7500))
-    market.add_currency(CryptoCurrency("Litecoin", "LTC", 580, 750, 550))
-    market.add_currency(CryptoCurrency("Ethereum", "ETH", 890, 900, 885))
-    market.add_currency(CryptoCurrency("IOTA", "IOT", 890, 900, 885))
+    btc = CryptoCurrency("Bitcoin", "BTC")
+    ltc = CryptoCurrency("Litecoin", "LTC")
+    eth = CryptoCurrency("Ethereum", "ETH")
+    iota = CryptoCurrency("IOTA", "IOT")
+
+    btc_price = CurrencyPrice(btc, 7800, 8000, 7500)
+    ltc_price = CurrencyPrice(ltc, 580, 750, 550)
+    eth_price = CurrencyPrice(eth, 890, 900, 885)
+    iota_price = CurrencyPrice(iota, 890, 900, 885)
+
+    market.add_currency(btc_price)
+    market.add_currency(ltc_price)
+    market.add_currency(eth_price)
+    market.add_currency(iota_price)
 
     local_storage = LocalStorage()
     holdings = local_storage.get_holdings()
