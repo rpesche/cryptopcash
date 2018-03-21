@@ -4,6 +4,7 @@ import json
 import logging
 
 from cryptopcash.model.Wallet import Holding
+from cryptopcash.model.Market import CryptoCurrency
 
 
 PREFIX_DIRECTORY_NAME = 'cryptopcash'
@@ -38,7 +39,8 @@ class LocalStorage(object):
 
         holdings = []
         for currency, holding in holding_data.items():
-            holding = Holding(currency, float(holding), "")
+            coin = CryptoCurrency("", currency)
+            holding = Holding(coin, float(holding), "")
             holdings.append(holding)
 
         return holdings
