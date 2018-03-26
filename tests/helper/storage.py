@@ -4,6 +4,7 @@ import xdg
 import pytest
 import tempfile
 import json
+from configparser import ConfigParser
 
 from cryptopcash.storage import LocalStorage
 
@@ -33,8 +34,22 @@ def locale_storage(monkeypatch):
 
 
 @pytest.fixture()
-def config_file(locale_storage, request):
+def data_file(locale_storage, request):
     content = request.param
-    config_filename = locale_storage.get_locale_data_filename()
-    with open(config_filename, 'w') as fd:
+    data_filename = locale_storage.get_locale_data_filename()
+    with open(data_filename, 'w') as fd:
         json.dump(content, fd)
+
+
+@pytest.fixture()
+def config_file_sample(locale_storage):
+
+    config = ConfigParser()
+
+    config['theme'] = {'text': 'black'}
+
+    config['api'] = {'currency': 'YEN'}
+
+    config_filename = locale_storage.get_locale_config_filename()
+    with open(config_filename, 'w') as fd:
+        config.write(fd)

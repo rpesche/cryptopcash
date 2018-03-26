@@ -2,6 +2,7 @@ import os
 import xdg
 import json
 import logging
+from configparser import ConfigParser
 
 from cryptopcash.model.Wallet import Holding
 from cryptopcash.model.Market import CryptoCurrency
@@ -44,3 +45,10 @@ class LocalStorage(object):
             holdings.append(holding)
 
         return holdings
+
+    def get_config(self):
+        config_filename = self.get_locale_config_filename()
+
+        parser = ConfigParser()
+        parser.read(config_filename)
+        return parser

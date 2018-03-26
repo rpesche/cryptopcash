@@ -18,10 +18,10 @@ def test_get_locale_data():
     assert os.path.exists(local_data_filename)
 
 
-@pytest.mark.parametrize('config_file', [
+@pytest.mark.parametrize('data_file', [
     {'LTC': 40, 'BTC': 50}],
     indirect=True)
-def test_get_holdings(config_file):
+def test_get_holdings(data_file):
     locale_storage = LocalStorage()
     holdings = locale_storage.get_holdings()
 
