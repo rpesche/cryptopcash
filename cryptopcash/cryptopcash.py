@@ -1,7 +1,7 @@
 from cryptopcash.market.CryptoCompare import CryptoCompare
 
 from cryptopcash.model.Wallet import Wallet
-from cryptopcash.model.Market import Market, CryptoCurrency, CurrencyPrice
+from cryptopcash.model.Market import Market
 
 from cryptopcash.ui.Main import Main
 
