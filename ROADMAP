@@ -1,0 +1,17 @@
+0.7.0
+    getting information (name) about wallet currency from market
+
+0.8.0
+    Correct displaying of unit with babel
+
+0.9.0
+    Add dialog to add new holdings
+
+0.10.0
+    custom colors
+
+0.11.0
+    pipeline with travis
+
+1.0
+    README and documentation
