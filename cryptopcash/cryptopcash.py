@@ -2,6 +2,7 @@ from cryptopcash.market.CryptoCompare import CryptoCompare
 
 from cryptopcash.model.Wallet import Wallet
 from cryptopcash.model.Market import Market
+from cryptopcash.model.Config import Config
 
 from cryptopcash.ui.Main import Main
 
@@ -23,6 +24,9 @@ def main():
 
     for price in crypto_compare_price:
         market.add_currency(price)
+
+    config = Config()
+    config.load()
 
     main_ui = Main(wallet, market)
     main_ui.run()
