@@ -1,6 +1,6 @@
 urwid==2.0.1
 xdg==3.0.2
-cryptocompare==0.6
+cryptocompy==0.1.1.dev1
 
 # test
 pytest==3.5.0
