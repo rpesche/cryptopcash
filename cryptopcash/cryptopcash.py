@@ -13,18 +13,24 @@ def main():
     wallet = Wallet()
     market = Market()
 
+    # get Holdings from data file
     local_storage = LocalStorage()
     holdings = local_storage.get_holdings()
     for holding in holdings:
         wallet.add_holding(holding)
 
-    coins = [holding.coin for holding in holdings]
     c = CryptoCompare()
-    crypto_compare_price = c.get_coins_prices(coins, "EUR")
+    # Update coin information
+    for holding in holdings:
+        symbol = holding.coin.symbol
+        holding.coin = c.get_coin_info(symbol)
 
-    for price in crypto_compare_price:
+    # Get price
+    coins = [holding.coin for holding in holdings]
+    for price in c.get_coins_prices(coins, "EUR"):
         market.add_currency(price)
 
+    # load config file
     config = Config()
     config.load()
 
