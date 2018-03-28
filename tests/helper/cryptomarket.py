@@ -1,5 +1,6 @@
 import pytest
-import cryptocompare
+from cryptocompy import coin as cryptocompy_coin
+from cryptocompy import price as cryptocompy_price
 
 
 PRICES = {'BTC': (8000, 9000, 7000),
@@ -10,11 +11,11 @@ PRICES = {'BTC': (8000, 9000, 7000),
 @pytest.fixture(autouse=True)
 def cryptocompare_mock(monkeypatch):
 
-    monkeypatch.setattr(cryptocompare, "get_coin_list", get_coin_list)
-    monkeypatch.setattr(cryptocompare, "get_price", get_price)
+    monkeypatch.setattr(cryptocompy_coin, "get_coin_list", get_coin_list)
+    monkeypatch.setattr(cryptocompy_price, "get_current_price", get_price)
 
 
-def get_coin_list(format=False):
+def get_coin_list():
     return {'BTC':
             {'Algorithm': 'SHA256',
              'CoinName': 'Bitcoin',
@@ -136,8 +137,4 @@ def get_price(symbols, unit, full=False):
     for symbol in symbols:
         raw_prices[symbol] = {unit: raw_price_template()}
 
-    display_prices = {}
-    for symbol in symbols:
-        display_prices[symbol] = {unit: display_price_template()}
-
-    return {'RAW': raw_prices, 'DISPLAY': display_prices}
+    return raw_prices
