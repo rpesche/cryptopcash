@@ -1,4 +1,5 @@
 import urwid
+from babel import numbers
 
 
 class Value(urwid.Text):
@@ -8,4 +9,4 @@ class Value(urwid.Text):
         super().__init__(rendered_text)
 
     def render_value(self, value, currency):
-        return "{} {}".format(value, currency)
+        return numbers.format_currency(value, currency)

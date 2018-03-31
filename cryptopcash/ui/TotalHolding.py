@@ -1,4 +1,5 @@
 import urwid
+from babel import numbers
 
 
 class TotalHolding(urwid.AttrMap):
@@ -12,4 +13,5 @@ class TotalHolding(urwid.AttrMap):
 
     def total_holding_str(self, wallet, market, conf):
         total_value = wallet.total_holding_value(market)
-        return "Total Holdings: {} {}".format(total_value, "€")
+        str_total_value = numbers.format_currency(total_value, conf.currency)
+        return "Total Holdings: {}".format(str_total_value)
