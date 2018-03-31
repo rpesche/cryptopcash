@@ -8,23 +8,23 @@ from cryptopcash.ui.TotalHolding import TotalHolding
 
 class Main(object):
 
-    def __init__(self, wallet, market):
+    def __init__(self, wallet, market, conf):
 
         def show_or_exit(key):
             if key in ('q', 'Q'):
                 raise urwid.ExitMainLoop()
 
         palette = self.get_palette()
-        main_ui = self.create_ui(wallet, market)
+        main_ui = self.create_ui(wallet, market, conf)
         self.loop = urwid.MainLoop(main_ui, palette,
                                    unhandled_input=show_or_exit)
 
-    def create_ui(self, wallet, market):
+    def create_ui(self, wallet, market, conf):
 
         title = Title()
         header = Header()
-        assets = [Asset(holding, market) for holding in wallet.holdings]
-        total = TotalHolding(wallet, market)
+        assets = [Asset(holding, market, conf) for holding in wallet.holdings]
+        total = TotalHolding(wallet, market, conf)
 
         listwalker = urwid.SimpleListWalker([header, *assets])
         list_box = urwid.ListBox(listwalker)

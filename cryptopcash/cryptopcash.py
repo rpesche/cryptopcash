@@ -25,14 +25,14 @@ def main():
         symbol = holding.coin.symbol
         holding.coin = c.get_coin_info(symbol)
 
-    # Get price
-    coins = [holding.coin for holding in holdings]
-    for price in c.get_coins_prices(coins, "EUR"):
-        market.add_currency(price)
-
     # load config file
     config = Config()
     config.load()
 
-    main_ui = Main(wallet, market)
+    # Get price
+    coins = [holding.coin for holding in holdings]
+    for price in c.get_coins_prices(coins, config.currency):
+        market.add_currency(price)
+
+    main_ui = Main(wallet, market, config)
     main_ui.run()

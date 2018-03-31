@@ -5,10 +5,11 @@ from cryptopcash.ui.Value import Value
 
 class Asset(urwid.Columns):
 
-    def __init__(self, holding, market):
+    def __init__(self, holding, market, conf):
 
         marked_price = market.get_currency_price(holding.coin.symbol)
 
+        unit = conf.currency
         currency = urwid.Text(marked_price.coin.name)
         price = Value(marked_price.price, unit)
         held = Value(holding.holding, unit)
