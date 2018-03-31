@@ -14,6 +14,11 @@ class CryptoCompare(Market):
             name = coins['CoinName']
             yield CryptoCurrency(name, symbol)
 
+    def get_coin_info(self, symbol):
+        infos = cryptocompy_coin.get_coin_list(coins=symbol)
+        name = infos[symbol]['CoinName']
+        return CryptoCurrency(name, symbol)
+
     def get_coin_price(self, coin, unit):
         symbol = coin.symbol
 
