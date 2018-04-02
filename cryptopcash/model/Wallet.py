@@ -6,7 +6,15 @@ class Wallet(object):
         self.holdings = []
 
     def add_holding(self, holding):
-        self.holdings.append(holding)
+        coin = holding.coin
+        new_quantity = holding.holding
+        existing_holding = [holding for holding in self.holdings
+                            if holding.coin == coin]
+        if existing_holding:
+            existing_holding[0].holding += new_quantity
+        else:
+            holding = Holding(coin, new_quantity)
+            self.holdings.append(holding)
 
     def total_holding_value(self, market):
         total = 0.0
