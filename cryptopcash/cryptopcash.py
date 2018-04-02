@@ -1,6 +1,6 @@
 from cryptopcash.market.CryptoCompare import CryptoCompare
 
-from cryptopcash.model.Wallet import Wallet
+from cryptopcash.model.Wallet import Wallet, Holding
 from cryptopcash.model.Market import Market
 from cryptopcash.model.Config import Config
 
@@ -47,6 +47,14 @@ class CryptopCash(object):
         if not CryptopCash.instance:
             CryptopCash.instance = CryptopCash()
         return CryptopCash.instance
+
+    def add_holding(self, coin, quantity):
+        holding = Holding(coin, quantity)
+        self.wallet.add_holding(holding)
+
+    def get_coin_info(self, coin):
+        c = CryptoCompare()
+        return c.get_coin_info(coin.symbol)
 
 
 def main():
