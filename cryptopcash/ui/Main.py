@@ -44,3 +44,21 @@ class Main(object):
 
     def run(self):
         self.loop.run()
+
+    def refresh(self):
+        from cryptopcash.cryptopcash import CryptopCash
+        context = CryptopCash.get_instance()
+
+        wallet = context.wallet
+        market = context.market
+        conf = context.config
+
+        header = Header()
+        # TODO
+        # Some refactoring possible here to avoid the "copy" here and in self.create_ui
+        # Maybe create a new urwid.Pile based class to manage the ui for the list of asset
+        new_assets = [Asset(holding, market, conf) for holding in wallet.holdings]
+        lines = [header, *new_assets]
+
+        new_widgets = [(urwid.Filler(line), ('given', 1)) for line in lines]
+        self.listwalker.contents = new_widgets

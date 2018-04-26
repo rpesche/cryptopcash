@@ -40,8 +40,8 @@ class CryptopCash(object):
                 self.market.add_currency(price)
 
     def start_cryptopcash(self):
-        main_ui = Main(self.wallet, self.market, self.config)
-        main_ui.run()
+        self.main_ui = Main(self.wallet, self.market, self.config)
+        self.main_ui.run()
 
     @staticmethod
     def get_instance():
@@ -55,6 +55,7 @@ class CryptopCash(object):
 
         local_storage = LocalStorage()
         local_storage.save_holdings(self.wallet.holdings)
+        self.main_ui.refresh()
 
     def get_coin_info(self, symbol):
         c = CryptoCompare()
