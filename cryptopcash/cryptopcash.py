@@ -18,7 +18,7 @@ class CryptopCash(object):
 
         # get Holdings from data file
         local_storage = LocalStorage()
-        holdings = local_storage.get_holdings()
+        holdings = local_storage.load_holdings()
         for holding in holdings:
             self.wallet.add_holding(holding)
 
@@ -52,9 +52,12 @@ class CryptopCash(object):
         holding = Holding(coin, quantity)
         self.wallet.add_holding(holding)
 
-    def get_coin_info(self, coin):
+        local_storage = LocalStorage()
+        local_storage.save_holdings(self.wallet.holdings)
+
+    def get_coin_info(self, symbol):
         c = CryptoCompare()
-        return c.get_coin_info(coin.symbol)
+        return c.get_coin_info(symbol)
 
 
 def main():

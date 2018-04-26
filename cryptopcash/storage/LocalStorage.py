@@ -25,7 +25,7 @@ class LocalStorage(object):
                             PREFIX_DIRECTORY_NAME,
                             WALLET_FILENAME)
 
-    def get_holdings(self):
+    def load_holdings(self):
         wallet_filename = self.get_locale_data_filename()
 
         if not os.path.exists(wallet_filename):
@@ -45,6 +45,21 @@ class LocalStorage(object):
             holdings.append(holding)
 
         return holdings
+
+    def save_holdings(self, holdings):
+        wallet_filename = self.get_locale_data_filename()
+
+        if not os.path.exists(wallet_filename):
+            return []
+
+        json_holdings = {held.coin.symbol: held.holding for held in holdings}
+
+        try:
+            with open(wallet_filename, 'w') as fd:
+                json.dump(json_holdings, fd)
+        except (FileNotFoundError, ValueError):
+            logging.error("date file {} not readable".format(wallet_filename))
+            return []
 
     def get_config(self):
         config_filename = self.get_locale_config_filename()
