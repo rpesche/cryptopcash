@@ -30,8 +30,9 @@ class Main(object):
         assets = [Asset(holding, market, conf) for holding in wallet.holdings]
         total = TotalHolding(wallet, market, conf)
 
-        listwalker = urwid.SimpleListWalker([header, *assets])
-        list_box = urwid.ListBox(listwalker)
+        lines = [header, *assets]
+        self.listwalker = urwid.Pile([('fixed', 1, urwid.Filler(line)) for line in lines])
+        list_box = urwid.LineBox(self.listwalker)
 
         frame = urwid.Frame(list_box, header=title, footer=total)
 
