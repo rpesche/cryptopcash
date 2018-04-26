@@ -21,9 +21,9 @@ def test_get_locale_data():
 @pytest.mark.parametrize('data_file', [
     {'LTC': 40, 'BTC': 50}],
     indirect=True)
-def test_get_holdings(data_file):
+def test_load_holdings(data_file):
     locale_storage = LocalStorage()
-    holdings = locale_storage.get_holdings()
+    holdings = locale_storage.load_holdings()
 
     assert holdings
     assert len(holdings) == 2
@@ -35,4 +35,4 @@ def test_get_holdings(data_file):
 
 def test_get_holdings_no_wallet():
     locale_storage = LocalStorage()
-    assert not locale_storage.get_holdings()
+    assert not locale_storage.load_holdings()
