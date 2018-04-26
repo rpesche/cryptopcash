@@ -49,13 +49,10 @@ class LocalStorage(object):
     def save_holdings(self, holdings):
         wallet_filename = self.get_locale_data_filename()
 
-        if not os.path.exists(wallet_filename):
-            return []
-
         json_holdings = {held.coin.symbol: held.holding for held in holdings}
 
         try:
-            with open(wallet_filename, 'w') as fd:
+            with open(wallet_filename, 'w+') as fd:
                 json.dump(json_holdings, fd)
         except (FileNotFoundError, ValueError):
             logging.error("date file {} not readable".format(wallet_filename))

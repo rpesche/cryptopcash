@@ -35,8 +35,9 @@ class CryptopCash(object):
         # Get price
         self.market = Market()
         coins = [holding.coin for holding in holdings]
-        for price in c.get_coins_prices(coins, self.config.currency):
-            self.market.add_currency(price)
+        if coins:
+            for price in c.get_coins_prices(coins, self.config.currency):
+                self.market.add_currency(price)
 
     def start_cryptopcash(self):
         main_ui = Main(self.wallet, self.market, self.config)
