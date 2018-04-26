@@ -1,4 +1,10 @@
+from urwid.display_common import _BASIC_COLORS as urwid_colors
+
 from cryptopcash.storage.LocalStorage import LocalStorage
+
+
+class InvalidColor(Exception):
+    pass
 
 
 class Config(object):
@@ -29,6 +35,8 @@ class Config(object):
         self.load_section(parser, 'api', ['currency', 'cache'])
         self.load_section(parser, 'locale', ['monetary'])
 
+        self.validate()
+
     def load_section(self, parser, section_name, attributes):
         try:
             api_config = parser[section_name]
@@ -39,3 +47,11 @@ class Config(object):
             attribute_value = api_config.get(attribute, None)
             if attribute_value:
                 self.__setattr__(attribute, attribute_value)
+
+    def validate(self):
+        if self.text not in urwid_colors:
+            raise InvalidColor("{} color is not available".format(self.text))
+        if self.banner not in urwid_colors:
+            raise InvalidColor("{} color is not available".format(self.banner))
+        if self.banner_text not in urwid_colors:
+            raise InvalidColor("{} color is not available".format(self.banner_text))

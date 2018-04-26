@@ -18,6 +18,9 @@ class CryptopCash(object):
         self.market = Market()
         self.config = Config()
 
+        # load config file
+        self.config.load()
+
         # get Holdings from data file
         local_storage = LocalStorage()
         holdings = local_storage.load_holdings()
@@ -29,9 +32,6 @@ class CryptopCash(object):
         for holding in holdings:
             symbol = holding.coin.symbol
             holding.coin = c.get_coin_info(symbol)
-
-        # load config file
-        self.config.load()
 
         # Get price
         coins = [holding.coin for holding in holdings]

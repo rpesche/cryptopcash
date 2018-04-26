@@ -18,7 +18,7 @@ class Main(object):
                 dialog = AddHoldingDialog(self.loop)
                 dialog.start()
 
-        palette = self.get_palette()
+        palette = self.get_palette(conf)
         main_ui = self.create_ui(wallet, market, conf)
         self.loop = urwid.MainLoop(main_ui, palette,
                                    unhandled_input=show_or_exit)
@@ -38,9 +38,9 @@ class Main(object):
 
         return urwid.AttrMap(frame, 'default')
 
-    def get_palette(self):
-        return [('default', 'yellow', 'black'),
-                ('highlighted', 'black', 'yellow')]
+    def get_palette(self, config):
+        return [('default', config.text, 'black'),
+                ('highlighted', config.banner_text, config.banner)]
 
     def run(self):
         self.loop.run()
