@@ -15,6 +15,8 @@ class CryptopCash(object):
 
     def __init__(self):
         self.wallet = Wallet()
+        self.market = Market()
+        self.config = Config()
 
         # get Holdings from data file
         local_storage = LocalStorage()
@@ -29,11 +31,9 @@ class CryptopCash(object):
             holding.coin = c.get_coin_info(symbol)
 
         # load config file
-        self.config = Config()
         self.config.load()
 
         # Get price
-        self.market = Market()
         coins = [holding.coin for holding in holdings]
         if coins:
             for price in c.get_coins_prices(coins, self.config.currency):
