@@ -4,6 +4,7 @@ from cryptopcash.ui.Asset import Asset
 from cryptopcash.ui.Title import Title
 from cryptopcash.ui.Header import Header
 from cryptopcash.ui.TotalHolding import TotalHolding
+from cryptopcash.ui.AddHoldingDialog import AddHoldingDialog
 
 
 class Main(object):
@@ -13,6 +14,9 @@ class Main(object):
         def show_or_exit(key):
             if key in ('q', 'Q'):
                 raise urwid.ExitMainLoop()
+            if key == 'a':
+                dialog = AddHoldingDialog(self.loop)
+                dialog.start()
 
         palette = self.get_palette()
         main_ui = self.create_ui(wallet, market, conf)
