@@ -1,8 +1,10 @@
 urwid==2.0.1
 xdg==3.0.2
 cryptocompy==0.1.1.dev1
+requests==2.18.4
 Babel==2.5.3
 
 # test
 pytest==3.5.0
 pytest-cov==2.5.1
+mock==2.0.0

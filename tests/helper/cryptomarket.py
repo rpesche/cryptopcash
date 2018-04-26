@@ -15,55 +15,61 @@ def cryptocompare_mock(monkeypatch):
     monkeypatch.setattr(cryptocompy_price, "get_current_price", get_price)
 
 
-def get_coin_list():
-    return {'BTC':
-            {'Algorithm': 'SHA256',
-             'CoinName': 'Bitcoin',
-             'FullName': 'Bitcoin (BTC)',
-             'FullyPremined': '0',
-             'Id': '1182',
-             'ImageUrl': '/media/19633/btc.png',
-             'Name': 'BTC',
-             'PreMinedValue': 'N/A',
-             'ProofType': 'PoW',
-             'SortOrder': '1',
-             'Sponsored': False,
-             'Symbol': 'BTC',
-             'TotalCoinSupply': '21000000',
-             'TotalCoinsFreeFloat': 'N/A',
-             'Url': '/coins/btc/overview'},
-            'LTC':
-            {'Algorithm': 'Scrypt',
-             'CoinName': 'Litecoin',
-             'FullName': 'Litecoin (LTC)',
-             'FullyPremined': '0',
-             'Id': '3808',
-             'ImageUrl': '/media/19782/litecoin-logo.png',
-             'Name': 'LTC',
-             'PreMinedValue': 'N/A',
-             'ProofType': 'PoW',
-             'SortOrder': '3',
-             'Sponsored': False,
-             'Symbol': 'LTC',
-             'TotalCoinSupply': '84000000',
-             'TotalCoinsFreeFloat': 'N/A',
-             'Url': '/coins/ltc/overview'},
-            'IOT':
-            {'Algorithm': 'N/A',
-             'CoinName': 'IOTA',
-             'FullName': 'IOTA (IOT)',
-             'FullyPremined': '1',
-             'Id': '127356',
-             'ImageUrl': '/media/1383540/iota_logo.png',
-             'Name': 'IOT',
-             'PreMinedValue': 'N/A',
-             'ProofType': 'Tangle',
-             'SortOrder': '1247',
-             'Sponsored': False,
-             'Symbol': 'IOT',
-             'TotalCoinSupply': '2779530283',
-             'TotalCoinsFreeFloat': 'N/A',
-             'Url': '/coins/iot/overview'}}
+def get_coin_list(coins=None):
+    res = {'BTC':
+           {'Algorithm': 'SHA256',
+            'CoinName': 'Bitcoin',
+            'FullName': 'Bitcoin (BTC)',
+            'FullyPremined': '0',
+            'Id': '1182',
+            'ImageUrl': '/media/19633/btc.png',
+            'Name': 'BTC',
+            'PreMinedValue': 'N/A',
+            'ProofType': 'PoW',
+            'SortOrder': '1',
+            'Sponsored': False,
+            'Symbol': 'BTC',
+            'TotalCoinSupply': '21000000',
+            'TotalCoinsFreeFloat': 'N/A',
+            'Url': '/coins/btc/overview'},
+           'LTC':
+           {'Algorithm': 'Scrypt',
+            'CoinName': 'Litecoin',
+            'FullName': 'Litecoin (LTC)',
+            'FullyPremined': '0',
+            'Id': '3808',
+            'ImageUrl': '/media/19782/litecoin-logo.png',
+            'Name': 'LTC',
+            'PreMinedValue': 'N/A',
+            'ProofType': 'PoW',
+            'SortOrder': '3',
+            'Sponsored': False,
+            'Symbol': 'LTC',
+            'TotalCoinSupply': '84000000',
+            'TotalCoinsFreeFloat': 'N/A',
+            'Url': '/coins/ltc/overview'},
+           'IOT':
+           {'Algorithm': 'N/A',
+            'CoinName': 'IOTA',
+            'FullName': 'IOTA (IOT)',
+            'FullyPremined': '1',
+            'Id': '127356',
+            'ImageUrl': '/media/1383540/iota_logo.png',
+            'Name': 'IOT',
+            'PreMinedValue': 'N/A',
+            'ProofType': 'Tangle',
+            'SortOrder': '1247',
+            'Sponsored': False,
+            'Symbol': 'IOT',
+            'TotalCoinSupply': '2779530283',
+            'TotalCoinsFreeFloat': 'N/A',
+            'Url': '/coins/iot/overview'}}
+    if not coins:
+        return res
+
+    if not isinstance(coins, (list, tuple)):
+        coins = [coins]
+    return {coin: res[coin] for coin in coins if coin in res.keys()}
 
 
 def raw_price_template(price=7000.00, low=6800.00, high=7200.00):

@@ -18,6 +18,9 @@ class CryptoCurrency(object):
         self.name = name
         self.symbol = symbol
 
+    def __eq__(self, other):
+        return self.symbol == other.symbol
+
 
 class CurrencyPrice(object):
 

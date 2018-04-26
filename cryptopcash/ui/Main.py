@@ -4,6 +4,7 @@ from cryptopcash.ui.Asset import Asset
 from cryptopcash.ui.Title import Title
 from cryptopcash.ui.Header import Header
 from cryptopcash.ui.TotalHolding import TotalHolding
+from cryptopcash.ui.AddHoldingDialog import AddHoldingDialog
 
 
 class Main(object):
@@ -13,6 +14,9 @@ class Main(object):
         def show_or_exit(key):
             if key in ('q', 'Q'):
                 raise urwid.ExitMainLoop()
+            if key == 'a':
+                dialog = AddHoldingDialog(self.loop)
+                dialog.start()
 
         palette = self.get_palette()
         main_ui = self.create_ui(wallet, market, conf)
@@ -26,8 +30,9 @@ class Main(object):
         assets = [Asset(holding, market, conf) for holding in wallet.holdings]
         total = TotalHolding(wallet, market, conf)
 
-        listwalker = urwid.SimpleListWalker([header, *assets])
-        list_box = urwid.ListBox(listwalker)
+        lines = [header, *assets]
+        self.listwalker = urwid.Pile([('fixed', 1, urwid.Filler(line)) for line in lines])
+        list_box = urwid.LineBox(self.listwalker)
 
         frame = urwid.Frame(list_box, header=title, footer=total)
 
@@ -39,3 +44,21 @@ class Main(object):
 
     def run(self):
         self.loop.run()
+
+    def refresh(self):
+        from cryptopcash.cryptopcash import CryptopCash
+        context = CryptopCash.get_instance()
+
+        wallet = context.wallet
+        market = context.market
+        conf = context.config
+
+        header = Header()
+        # TODO
+        # Some refactoring possible here to avoid the "copy" here and in self.create_ui
+        # Maybe create a new urwid.Pile based class to manage the ui for the list of asset
+        new_assets = [Asset(holding, market, conf) for holding in wallet.holdings]
+        lines = [header, *new_assets]
+
+        new_widgets = [(urwid.Filler(line), ('given', 1)) for line in lines]
+        self.listwalker.contents = new_widgets
