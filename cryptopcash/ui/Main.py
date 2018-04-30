@@ -5,6 +5,7 @@ from cryptopcash.ui.Title import Title
 from cryptopcash.ui.Header import Header
 from cryptopcash.ui.TotalHolding import TotalHolding
 from cryptopcash.ui.AddHoldingDialog import AddHoldingDialog
+from cryptopcash.ui.AssetsView import AssetsView
 
 
 class Main(object):
@@ -18,7 +19,7 @@ class Main(object):
                 dialog = AddHoldingDialog(self.loop)
                 dialog.start()
 
-        palette = self.get_palette()
+        palette = self.get_palette(conf)
         main_ui = self.create_ui(wallet, market, conf)
         self.loop = urwid.MainLoop(main_ui, palette,
                                    unhandled_input=show_or_exit)
@@ -28,19 +29,17 @@ class Main(object):
         title = Title()
         header = Header()
         assets = [Asset(holding, market, conf) for holding in wallet.holdings]
+        self.assets_view = AssetsView(assets)
         total = TotalHolding(wallet, market, conf)
 
-        lines = [header, *assets]
-        self.listwalker = urwid.Pile([('fixed', 1, urwid.Filler(line)) for line in lines])
-        list_box = urwid.LineBox(self.listwalker)
+        contents_view = urwid.LineBox(urwid.Frame(self.assets_view, header=header))
+        main_view = urwid.Frame(contents_view, header=title, footer=total)
 
-        frame = urwid.Frame(list_box, header=title, footer=total)
+        return urwid.AttrMap(main_view, 'default')
 
-        return urwid.AttrMap(frame, 'default')
-
-    def get_palette(self):
-        return [('default', 'yellow', 'black'),
-                ('highlighted', 'black', 'yellow')]
+    def get_palette(self, config):
+        return [('default', config.text, 'black'),
+                ('highlighted', config.banner_text, config.banner)]
 
     def run(self):
         self.loop.run()
@@ -53,12 +52,5 @@ class Main(object):
         market = context.market
         conf = context.config
 
-        header = Header()
-        # TODO
-        # Some refactoring possible here to avoid the "copy" here and in self.create_ui
-        # Maybe create a new urwid.Pile based class to manage the ui for the list of asset
         new_assets = [Asset(holding, market, conf) for holding in wallet.holdings]
-        lines = [header, *new_assets]
-
-        new_widgets = [(urwid.Filler(line), ('given', 1)) for line in lines]
-        self.listwalker.contents = new_widgets
+        self.assets_view.refresh_assets(new_assets)

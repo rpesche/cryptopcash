@@ -18,6 +18,9 @@ class CryptopCash(object):
         self.market = Market()
         self.config = Config()
 
+        # load config file
+        self.config.load()
+
         # get Holdings from data file
         local_storage = LocalStorage()
         holdings = local_storage.load_holdings()
@@ -26,18 +29,12 @@ class CryptopCash(object):
 
         c = CryptoCompare()
         # Update coin information
-        for holding in holdings:
+        for holding in self.wallet.holdings:
             symbol = holding.coin.symbol
             holding.coin = c.get_coin_info(symbol)
 
-        # load config file
-        self.config.load()
-
         # Get price
-        coins = [holding.coin for holding in holdings]
-        if coins:
-            for price in c.get_coins_prices(coins, self.config.currency):
-                self.market.add_currency(price)
+        self.update_price()
 
     def start_cryptopcash(self):
         self.main_ui = Main(self.wallet, self.market, self.config)
@@ -55,11 +52,23 @@ class CryptopCash(object):
 
         local_storage = LocalStorage()
         local_storage.save_holdings(self.wallet.holdings)
-        self.main_ui.refresh()
+        self.refresh()
 
     def get_coin_info(self, symbol):
         c = CryptoCompare()
         return c.get_coin_info(symbol)
+
+    def refresh(self):
+        self.update_price()
+        self.main_ui.refresh()
+
+    def update_price(self):
+        c = CryptoCompare()
+        holdings = self.wallet.holdings
+        coins = [holding.coin for holding in holdings]
+        if coins:
+            for price in c.get_coins_prices(coins, self.config.currency):
+                self.market.add_currency(price)
 
 
 def main():
