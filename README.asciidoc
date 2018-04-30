@@ -1,6 +1,8 @@
 cryptopcash
 ===========
 
+image:https://travis-ci.org/rpesche/cryptopcash.svg?branch=master["Build Status", link="https://travis-ci.org/rpesche/cryptopcash"]
+
 cryptopcash is a cli cryptocurrency portifolio
 
 
