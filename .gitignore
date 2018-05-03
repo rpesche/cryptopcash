@@ -3,3 +3,7 @@ __pycache__
 .coverage
 .pytest_cache
 htmlcov
+
+dist
+.eggs
+cryptopcash.egg-info/

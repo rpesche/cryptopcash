@@ -1,0 +1,106 @@
+CHANGES
+=======
+
+1.0.0
+-----
+
+* release v1.0.0
+* add alignment
+
+0.11.0
+------
+
+* release v0.11.0
+* badget setted to master
+* add badge for coverage
+* add coverage in ci
+* add badge
+* add travis config
+
+0.10.0
+------
+
+* release v0.10.0
+* add function to refresh the price and ui in cryptopcash class
+* Add AssetsView to show holdings grid
+* add colors support
+
+0.9.0
+-----
+
+* release
+* tests
+* Add function to refresh ui and refresh ui after adding crypto
+* use urwid.Pile instead of urwid.ListBox
+* cosmetic
+* bug when file doesn't exist
+* add popup widget to add holding
+* add function to save wallets
+* correct holding printing without symbol
+* add function to get coin info and add holding
+* updating quantity if cryptocurrency already exist in wallet
+* add equality function between currency
+* add syngleton class CryptopCash
+* release 0.8.0
+* format monnetary value with babel
+* pass conf instance to all class
+* delete 'unit' attribute of Holding
+* Add babel dependency for value printing
+* force float conversion
+* git coins informations from cryptocompare
+* Add method to get coin information
+* Update test to mock cryptocompy lib
+* update CryptoCompare to use cryptocompy
+* Use now cryptocompy instead of cryptocompare
+* add ROADMAP
+
+0.6.0
+-----
+
+* test config loading
+* add fixture to create a sample config
+* fixture renamed
+* Load config
+* get all attribute existing in cryptop
+* add support for config file
+* remove unused import
+
+0.5.0
+-----
+
+* test CryptoCompare api
+* add framework to test cryptopcompare.com
+* add local storage test
+* update .gitignore with pytest temp file
+* Adding missing \_\_init\_\_.py file
+* add new requirements for testing purpose
+* add LICENSE
+
+0.4.0
+-----
+
+* get currency from CryptoCompare
+* add api for cryptocompare
+* deleting unnecessary main()
+* add CurrencyPrice object
+
+0.3.0
+-----
+
+* add storage feature with json file
+* show currency name instead of code
+
+0.2.0
+-----
+
+* add main file to execute cryptopcash
+* add total holdings value line
+* palette renommage
+* centralize computing function in Wallet.py
+
+0.1.0
+-----
+
+* rename
+* setup.py with pbr
+* Initial commit
