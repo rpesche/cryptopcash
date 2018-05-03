@@ -6,26 +6,29 @@ image:https://codecov.io/github/rpesche/cryptopcash/coverage.svg?branch=master["
 
 cryptopcash is a cli cryptocurrency portifolio
 
+image:images/cryptopcash.png[front page]
 
 Installation
 ------------
 
-.. code:: bash
 
-    sudo pip install cryptopcash
+----
+#  sudo pip install cryptopcash
+----
 
 
 Usage
 -----
 
-
-.. code:: bash
-    cryptopcash
-
+----
+# cryptopcash
+----
 
 
 Colors:
 ------
+
+image:images/colors.png[colors sample]
 
 Available colors :
 
@@ -45,3 +48,16 @@ Available colors :
     * light cyan
     * dark gray
     * light gray
+
+
+
+Use cryptop config and data file
+--------------------------------
+
+The `cryptop` config and data files are compatible with `cryptopcash`
+You juste need to copy it into the `cryptopcash` directory:
+
+----
+# cp ~/.cryptop/config.ini ~/.config/cryptopcash/
+# cp ~/.cryptop/wallet.json ~/.local/share/cryptopcash/wallet.json
+----
