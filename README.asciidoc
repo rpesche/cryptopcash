@@ -25,12 +25,33 @@ Usage
 ----
 
 
+Key bindings
+------------
+
+* 'a' - add currency to the portfolio
+
+
+Config
+------
+
+The available parameters are :
+
+* `currency` : the conversion currency. Default to `EUR` for EURO ('USD' for us dollar)
+
+
 Colors:
 ------
 
 image:images/colors.png[colors sample]
 
-Available colors :
+The colors are defined in the config file `~/.config/cryptopcash/config.ini`.
+They are 3 parameters :
+
+* `text` for the text color
+* `banner_text` for the banner text color
+* `banner` for the background color of banner text
+
+The available colors are :
 
     * black
     * yellow
