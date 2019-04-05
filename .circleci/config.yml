@@ -1,0 +1,47 @@
+
+jobs:
+
+
+
+  tests:
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: pip install --user -r requirements.txt
+      - run: python -m pytest
+
+
+  pep8:
+    docker:
+      - image: circleci/python:3.6.1
+    steps:
+        - checkout
+        - run: pip install --user pycodestyle
+        - run: python -m pycodestyle
+
+  deploy:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run: npm install
+      - run: npx semantic-release
+
+
+
+
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - deploy:
+          requires:
+              - tests
+              - pep8
+      - tests:
+          requires:
+              - pep8
+      - pep8
