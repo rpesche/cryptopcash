@@ -1,0 +1,22 @@
+
+{
+  "branch": "master",
+  "tagFormat": "${version}",
+  "verifyConditions": [
+    "@semantic-release/git",
+    "@semantic-release/changelog",
+    "@semantic-release/github"
+  ],
+  "prepare": [
+        "@semantic-release/changelog",
+        {
+        "path": "@semantic-release/git",
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }
+  ],
+  "publish": [
+    "@semantic-release/github"
+  ],
+   "fail": false,
+   "success": false
+}

@@ -26,9 +26,9 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
-      - run: npm install
-      - run: npx semantic-release
-
+      - run: sudo npm i -g npm@6.1.0
+      - run: sudo npm i -g semantic-release @semantic-release/git @semantic-release/gitlab @semantic-release/changelog
+      - run: semantic-release
 
 
 

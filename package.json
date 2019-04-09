@@ -1,0 +1,8 @@
+{
+  "name": "@rpesche/cryptopcash",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rpesche/cryptopcash"
+  },
+  "version": "1.0.0"
+}
