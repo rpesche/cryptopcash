@@ -36,3 +36,9 @@ def test_load_holdings(data_file):
 def test_get_holdings_no_wallet():
     locale_storage = LocalStorage()
     assert not locale_storage.load_holdings()
+
+
+def test_get_default_config_filename():
+    locale_storage = LocalStorage()
+    default_config = locale_storage.get_default_config_filename()
+    assert default_config.exists()
