@@ -3,9 +3,12 @@ import xdg
 import json
 import logging
 from configparser import ConfigParser
+from pathlib import Path
+import shutil
 
 from cryptopcash.model.Wallet import Holding
 from cryptopcash.model.Market import CryptoCurrency
+from cryptopcash import util
 
 
 PREFIX_DIRECTORY_NAME = 'cryptopcash'
@@ -60,7 +63,21 @@ class LocalStorage(object):
 
     def get_config(self):
         config_filename = self.get_locale_config_filename()
+        if not Path(config_filename).exists():
+            self.copy_default_config(config_filename)
 
         parser = ConfigParser()
         parser.read(config_filename)
         return parser
+
+    def get_default_config_filename(self):
+        return util.get_resource_path() / 'config' / CONFIG_FILENAME
+
+    def copy_default_config(self, config_filename):
+        default_config_filename = self.get_default_config_filename()
+
+        config_path = Path(config_filename).parents[0]
+        if not config_path.exists():
+            config_path.mkdir()
+
+        shutil.copyfile(default_config_filename, config_filename)
