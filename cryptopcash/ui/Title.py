@@ -1,5 +1,7 @@
 import urwid
 
+import cryptopcash
+
 
 class Title(urwid.Columns):
 
@@ -8,4 +10,5 @@ class Title(urwid.Columns):
         super().__init__([text_widget])
 
     def render_value(self):
-        return "cryptocash v0.1"
+        version = cryptopcash.__version__
+        return f"cryptocash v{version}"
