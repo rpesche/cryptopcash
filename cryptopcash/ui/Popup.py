@@ -23,5 +23,5 @@ class Popup(urwid.Overlay):
         self.old_widget = self.loop.widget
         self.loop.widget = self
 
-    def exit(self):
+    def exit(self, *args, **kwargs):
         self.loop.widget = self.old_widget
