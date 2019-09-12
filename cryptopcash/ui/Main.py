@@ -5,6 +5,7 @@ from cryptopcash.ui.Title import Title
 from cryptopcash.ui.Header import Header
 from cryptopcash.ui.TotalHolding import TotalHolding
 from cryptopcash.ui.AddHoldingDialog import AddHoldingDialog
+from cryptopcash.ui.ErrorDialog import ErrorDialog, DialogException
 from cryptopcash.ui.AssetsView import AssetsView
 
 
@@ -42,7 +43,19 @@ class Main(object):
                 ('highlighted', config.banner_text, config.banner)]
 
     def run(self):
-        self.loop.run()
+
+        while True:
+            try:
+                self.loop.run()
+            except DialogException as e:
+                # TODO Remove the popup. May be handled better
+                self.loop.widget.exit()
+                dialog = ErrorDialog(self.loop, e)
+                dialog.start()
+                continue
+            break
+
+
 
     def refresh(self):
         from cryptopcash.cryptopcash import CryptopCash
