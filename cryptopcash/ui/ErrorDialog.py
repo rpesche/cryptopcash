@@ -2,7 +2,9 @@ import urwid
 
 from cryptopcash.ui.Popup import Popup
 
+
 class DialogException(Exception):
+
     def __init__(self, text):
         self.text = text
 

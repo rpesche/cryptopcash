@@ -5,6 +5,13 @@ from cryptopcash.market.Market import Market
 
 from cryptopcash.model.Market import CryptoCurrency, CurrencyPrice
 
+from cryptopcash.ui.ErrorDialog import DialogException
+
+
+class UnknownCoin(DialogException):
+    def __init__(self):
+        DialogException.__init__(self, "This coin doesn't exist on CryptoCompare.com market")
+
 
 class CryptoCompare(Market):
 
@@ -15,7 +22,10 @@ class CryptoCompare(Market):
             yield CryptoCurrency(name, symbol)
 
     def get_coin_info(self, symbol):
-        infos = cryptocompy_coin.get_coin_list(coins=symbol)
+        try:
+            infos = cryptocompy_coin.get_coin_list(coins=symbol)
+        except KeyError:
+            raise UnknownCoin
         name = infos[symbol]['CoinName']
         return CryptoCurrency(name, symbol)
 

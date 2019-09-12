@@ -55,8 +55,6 @@ class Main(object):
                 continue
             break
 
-
-
     def refresh(self):
         from cryptopcash.cryptopcash import CryptopCash
         context = CryptopCash.get_instance()
