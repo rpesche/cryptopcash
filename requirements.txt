@@ -2,7 +2,7 @@ urwid==2.0.1
 xdg==3.0.2
 cryptocompy==0.1.1.dev1
 requests==2.21.0
-Babel==2.5.3
+Babel==2.9.1
 
 # test
 pytest==3.5.0
